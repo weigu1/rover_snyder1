@@ -132,8 +132,8 @@ String html_css_js = R"=====(
 </head>
 <body>
   <h1>snyder by creative-lab.lu</h1>
-  <input id='h' class='range horizontal-lowest-first round slider_h' type='range' oninput='send_data();' min='0' max='1023' step='1' value='90' >
-  <input id='v' class='range vertical-heighest-first round slider_v' type='range' oninput='send_data();' min='0' max='1023' step='1' value='90'  >	
+  <input id='h' class='range horizontal-lowest-first round slider_h' type='range' oninput='send_data();' min='0' max='1023' step='1' value='512' >
+  <input id='v' class='range vertical-heighest-first round slider_v' type='range' oninput='send_data();' min='0' max='1023' step='1' value='512' >
 </body>
 </html>
 )=====";
