@@ -165,7 +165,8 @@ void init_LED() {
 
 // initialise the motor pins as output
 void init_motors() {  
-  #ifdef ESP8266        
+  #ifdef ESP8266 
+    analogWriteRange(1023);             // needed for ESP8266 core beginning with 3.0
     pinMode(MOTOR_R1_PIN, OUTPUT);      // 4 pins to motor driver as output
     pinMode(MOTOR_R2_PIN, OUTPUT); 
     pinMode(MOTOR_L1_PIN, OUTPUT); 
@@ -183,10 +184,9 @@ void init_motors() {
 }
 
 // initialize wifi ap
-void init_wifi_ap() { 
-  WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);       // start the access point
-  delay(100); // needed if Address is not 192.168.4.1! (ESP32)
+void init_wifi_ap() {   
   WiFi.softAPConfig(IP_AP, IP_AP, MASK_AP); // second is gateway same as ip
+  WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);       // start the access point
   IPAddress myIP = WiFi.softAPIP();
   Serial.print("Access Point ");
   Serial.println(WIFI_SSID);

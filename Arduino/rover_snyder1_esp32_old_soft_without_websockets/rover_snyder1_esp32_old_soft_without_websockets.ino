@@ -24,7 +24,6 @@
 #include <WiFiClient.h>
 #include <WebServer.h>
 
-
 const char *ssid = "btsiot01";  // AP settings
 const char *password = "btsiot01"; //password must have more than 7 characters!!
 IPAddress IP_AP(192, 168, 168, 168);
@@ -130,18 +129,13 @@ void setup() {
   ledcSetup(MotorL2_PWM, 1000, 10); 
   
   WiFi.mode(WIFI_AP);
-  WiFi.softAP(ssid, password);    // if you want remove password parameter
-
-  Serial.println("Wait 100 ms for SYSTEM_EVENT_AP_START...");
-  delay(100);
-  
   WiFi.softAPConfig(IP_AP, IP_AP, MASK_AP);
+  WiFi.softAP(ssid, password);    // if you want remove password parameter
   IPAddress myIP = WiFi.softAPIP();
   Serial.println();
   Serial.print("IP address: ");
   Serial.println(myIP);
  
-
   // handle http requests; root must be called! (don't forget the "/")
   // type: http://192.168.168.168/
 //a  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {

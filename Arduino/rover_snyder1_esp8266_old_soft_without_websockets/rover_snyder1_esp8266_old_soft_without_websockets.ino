@@ -25,8 +25,6 @@ const byte MotorR2_pin = 0;  // D3
 const byte MotorL1_pin = 15; // D8 
 const byte MotorL2_pin = 13; // D7
 
-
-
 // here comes the html and css magic
 String myhtml = R"=====(
 <!DOCTYPE html>
@@ -91,23 +89,18 @@ String myhtml = R"=====(
 )=====";
  
 void setup() {
-  pinMode(MotorR1_pin, OUTPUT); // 4 pins to motor driver as output
+  analogWriteRange(1023);         // needed for ESP8266 core beginning with 3.0
+  pinMode(MotorR1_pin, OUTPUT);   // 4 pins to motor driver as output
   pinMode(MotorR2_pin, OUTPUT); 
   pinMode(MotorL1_pin, OUTPUT); 
   pinMode(MotorL2_pin, OUTPUT); 
-  pinMode(D4, OUTPUT);   // blue LED Pin (D4) as output
+  pinMode(D4, OUTPUT);            // blue LED Pin (D4) as output
 
-  digitalWrite(D4, LOW);                  // LED on (negative logic)
+  digitalWrite(D4, LOW);          // LED on (negative logic)
+  action(0,0,0,0);                // stop the motors
 
-  action(0,0,0,0);                         // stop the motors
-  /*digitalWrite(Motor_R_PWM_1, LOW);
-  digitalWrite(Motor_R_PWM_2, LOW);
-  digitalWrite(Motor_L_PWM_1, LOW);
-  digitalWrite(Motor_L_PWM_2, LOW);*/
-
-  WiFi.softAP(ssid, password);
   WiFi.softAPConfig(IP_AP, IP_AP, MASK_AP);
-  IPAddress myIP = WiFi.softAPIP();
+  WiFi.softAP(ssid, password);
 
   // handle http requests; root must be called! type: http://192.168.168.168/
   server.on("/", handleRoot);              // (don't forget the "/")
@@ -137,7 +130,6 @@ void handleRoot() {
   digitalWrite(LED, HIGH);
 }
 
-
 void forwards()  { action(slow,0,slow,0); }
 void forwardm()  { action(medium,0,medium,0); }
 void forwardf()  { action(fast,0,fast,0); }
@@ -159,5 +151,3 @@ void action(int MotorR1, int MotorR2, int MotorL1, int MotorL2) {
   server.send(200, "text/html",myhtml);
   digitalWrite(LED, HIGH);
 }  
-
-
