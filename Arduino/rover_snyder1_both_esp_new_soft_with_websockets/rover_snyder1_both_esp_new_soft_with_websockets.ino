@@ -50,7 +50,8 @@
 
 const char *WIFI_SSID = "btsiot01";     // AP settings
 const char *WIFI_PASSWORD = "btsiot01"; // password must have min. 8 char.!!
-IPAddress IP_AP(192, 168, 168, 168);
+IPAddress IP_AP_LOCAL(192, 168, 168, 168);
+IPAddress IP_AP_GW(192, 168, 168, 1);
 IPAddress MASK_AP(255, 255, 255, 0);
 
 #ifdef ESP8266
@@ -185,7 +186,7 @@ void init_motors() {
 
 // initialize wifi ap
 void init_wifi_ap() {   
-  WiFi.softAPConfig(IP_AP, IP_AP, MASK_AP); // second is gateway same as ip
+  WiFi.softAPConfig(IP_AP_LOCAL, IP_AP_GW, MASK_AP);
   WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);       // start the access point
   IPAddress myIP = WiFi.softAPIP();
   Serial.print("Access Point ");
